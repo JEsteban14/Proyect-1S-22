@@ -1,11 +1,15 @@
-#ifndef _LIBRERIA
-#define _LIBRERIA
-
 #include "iostream"
 #include "windows.h"
+#include "stdio.h"
+#include "stdlib.h"
+
+//Cuadrar 10 en printCard '0'
+void inicio();
+void printCard(int pos, char user, char valor);
+void escribir(COORD pos, char mensaje[]);
 
 void inicio(){	
-	char a = 244 ;	
+	char a = 244 ;//simbolos	
 	printf("\n");
 	printf(" %c%c%c%c%c%c  %c       %c%c%c%c%c%c  %c%c%c%c%c%c  %c   %c  %c%c%c%c%c%c  %c%c%c%c%c%c  %c%c%c%c%c%c  %c   %c\n",a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a,a);
 	printf(" %c    %c  %c       %c    %c  %c       %c  %c      %c    %c    %c  %c       %c  %c\n",a,a,a);
@@ -27,113 +31,70 @@ void inicio(){
 		
 }
 
-
-void cartaUp(int quantity){
-	
+void printCard(int pos, char user, char valor, int forma){
 	char v = 186 ,cul = 201 ,h = 205 ,cur = 187 ,cdl = 200 ,cdr = 188;
+	char c = 3 ,p= 6 ,t= 5, d = 4, simbolo;
 	
-	for(int i = 0; i < quantity; i++){
-		printf("%c%c%c%c%c%c%c%c%c",cul,h,h,h,h,h,h,h,cur);
-		printf (" ");
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD posicion;	
+	int y,x;
+	
+	switch (forma){
+		case '0':
+			simbolo = c;
+			break;
+		case '1':
+			simbolo = p;
+			break;
+		case '2':
+			simbolo = t;
+			break;
+		case '3':
+			simbolo = d;
+			break;
 	}
-	printf ("\n");
-	for(int i = 0; i < quantity; i++){
-		printf("%c       %c",v,v);
-		printf (" ");
-	}
-	printf ("\n");
-	for(int i = 0; i < quantity; i++){
-		printf("%c       %c",v,v);
-		printf (" ");
-	}
-	printf ("\n");
-	for(int i = 0; i < quantity; i++){
-		printf("%c       %c",v,v);
-		printf (" ");
-	}
-	printf ("\n");
-	for(int i = 0; i < quantity; i++){
-		printf("%c       %c",v,v);
-		printf (" ");
-	}
-	printf ("\n");
-	for(int i = 0; i < quantity; i++){
-		printf("%c       %c",v,v);
-		printf (" ");
-	}
-	printf ("\n");
-	for(int i = 0; i < quantity; i++){
-		printf("%c%c%c%c%c%c%c%c%c",cdl,h,h,h,h,h,h,h,cdr);
-		printf (" ");
-	}
-}
-
-
-// char player = u, c
-// char valor 0 = 10
-// int nCarta = La posicion de la carta de izquierda a derecha
-void valorCarta(char player, char valor, int nCarta){
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-		COORD pos;
-		int y,x;
-		if (player == 'u'){
-			y = 3; //Depende de la posición de cartas de del jugador
+	
+	
+	if (user == 'u'){
+			y = 13; //Depende de la posición de cartas de del jugador
 		}
-		else if (player == 'c'){
-			y = 10; // Depende de la posicion de cartas de la cpu
-		}	
-		
-		if (nCarta == 1){
-			x = 4;
+		else if (user == 'c'){
+			y = 4; // Depende de la posicion de cartas de la cpu
+		}		
+		//Coordenada x
+		if (pos == 1){
+			x = 0;
 		}
 		else{
-			x = 4+(10*(nCarta-1));
+			x = (10*(pos-1));
 		}
-		
-		pos = {x,y};
-		SetConsoleCursorPosition(hConsole, pos);
-		if(valor == 'A'){
-			WriteConsole(hConsole, "A", 1, NULL, NULL);
-		}
-		if(valor == '2'){
-			WriteConsole(hConsole, "2", 1, NULL, NULL);
-		}
-		if(valor == '3'){
-			WriteConsole(hConsole, "3", 1, NULL, NULL);
-		}
-		if(valor == '4'){
-			WriteConsole(hConsole, "4", 1, NULL, NULL);
-		}
-		if(valor == '5'){
-			WriteConsole(hConsole, "5", 1, NULL, NULL);
-		}
-		if(valor == '6'){
-			WriteConsole(hConsole, "6", 1, NULL, NULL);
-		}
-		if(valor == '7'){
-			WriteConsole(hConsole, "7", 1, NULL, NULL);
-		}
-		if(valor == '8'){
-			WriteConsole(hConsole, "8", 1, NULL, NULL);
-		}
-		if(valor == '9'){
-			WriteConsole(hConsole, "9", 1, NULL, NULL);
-		}
-		if(valor == '0'){
-			WriteConsole(hConsole, "10", 2, NULL, NULL);
-		}
-		if(valor == 'J'){
-			WriteConsole(hConsole, "J", 1, NULL, NULL);
-		}
-		if(valor == 'Q'){
-			WriteConsole(hConsole, "Q", 1, NULL, NULL);
-		}
-		if(valor == 'K'){
-			WriteConsole(hConsole, "K", 1, NULL, NULL);
-		}
-		pos = {0,20}; //Posición final
-		SetConsoleCursorPosition(hConsole, pos);	
+	posicion = {x,y};
+			
+	SetConsoleCursorPosition(hConsole, posicion);
+	printf("%c%c%c%c%c%c%c%c%c ",cul,h,h,h,h,h,h,h,cur);
+	posicion = {x,y+1};		
+	SetConsoleCursorPosition(hConsole, posicion);
+	printf("%c%c      %c ",v,simbolo,v);
+	posicion = {x,y+2};		
+	SetConsoleCursorPosition(hConsole, posicion);
+	printf("%c       %c ",v,v);
+	posicion = {x,y+3};		
+	SetConsoleCursorPosition(hConsole, posicion);
+	printf("%c   %c   %c ",v,valor,v);
+	posicion = {x,y+4};		
+	SetConsoleCursorPosition(hConsole, posicion);
+	printf("%c       %c ",v,v);
+	posicion = {x,y+5};		
+	SetConsoleCursorPosition(hConsole, posicion);
+	printf("%c      %c%c ",v,simbolo,v);
+	posicion = {x,y+6};		
+	SetConsoleCursorPosition(hConsole, posicion);
+	printf("%c%c%c%c%c%c%c%c%c \n",cdl,h,h,h,h,h,h,h,cdr);
+	posicion = {0,20}; //Posición final
 }
 
-#include "graficos.h"
-#endif
+void escribir(COORD pos, char mensaje[]){
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(hConsole, pos);
+	printf("%c", mensaje);
+}
