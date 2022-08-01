@@ -106,11 +106,12 @@ int sumaArreglo(int array[], int n){
 	
 }
 
-void isAin(int* suma,char array[]){
-	for(int i = 0; i < 20; i++){
-		if(*suma > 21){
-			if(array[i] == 'A'){
-				*suma-=10;	
+void isAin(int array[], int suma){
+	if(suma > 21){
+	for(int i = 0; i < 10; i++){		
+			if(array[i] == 11){
+				array[i] = 1;
+				break;
 			}
 		}
 	}

@@ -9,6 +9,7 @@ using namespace std;
 struct jugador{
 	int cantCartas = CARTASINICIO;
 	char cartas[10];
+	int valores[10];
 	char simbolos[10];
 	int suma;
 	int dinero;	
@@ -52,10 +53,12 @@ void blackjack(){
 			User.cartas[i] = 0;
 			CPU.simbolos[i] = 0;
 			User.simbolos[i] = 0;
+			CPU.valores[i] = 0;
+			User.valores[i] = 0;
 		}
 			
 		
-		printf("T%c dinero:  $%d\n",u, User.dinero); //IMPRIMIMOS DINERO		
+		printf("T%c dinero:  $%d\n",u, User.dinero); //IMPRIMIMOS DINERO			
 		if (User.dinero > 5000){ //VERIFICAMOS SI TIENE PARA APOSTAR
 		printf("%cCuanto deseas apostar? M%cnimo $5000\n",interrogacion,i); // Pedimos valor de apuesta
 		scanf("%d",&apuesta);		
@@ -75,33 +78,39 @@ void blackjack(){
 		
 		while(true){												
 			printf("T%c dinero:  $%d\t",u, User.dinero);
-			printf("T%c apuesta: $%d\n",u, dinero);
-			
+			printf("T%c apuesta: $%d\n ",u, dinero);			
 					
 			if(inicio){
 				//ARRAYS INFORMACION CARTAS CPU (INICIAL)
 				for(int i = 0; i < CARTASINICIO; i++){
 					CPU.cartas[i] = cartas[index];
-					CPU.simbolos[i] = simbolos[index];
+					CPU.valores[i] = convertir(cartas[index]);
+					CPU.simbolos[i] = simbolos[index];										
 					index++;													
 				}
 				//ARRAYS INFORMACION CARTAS USER (INICIAL)
 				for(int i = 0; i < CARTASINICIO; i++){
 					User.cartas[i] = cartas[index];
+					User.valores[i] = convertir(cartas[index]);
 					User.simbolos[i] = simbolos[index];
 					index++;				
-				}
-				//SUMAS
-			
-				for(int i = 0; i < CPU.cantCartas; i++){
-					CPU.suma += convertir(CPU.cartas[i]);
-				}
-				for(int i = 0; i < User.cantCartas; i++){
-					User.suma += convertir(User.cartas[i]);
-				}
+				}		
+				
 				inicio = false; 
 			} 											//FINALIZA EL INICIO
 			
+			
+			//SUMAS 
+			User.suma = sumaArreglo(User.valores,10);
+			CPU.suma = sumaArreglo(CPU.valores,10);
+			
+			//VERIFICACIÓN AS
+			isAin(User.valores,User.suma);
+			isAin(CPU.valores,CPU.suma);
+			
+			User.suma = sumaArreglo(User.valores,10);
+			CPU.suma = sumaArreglo(CPU.valores,10);			
+						
 			escribir({0,1});
 			printf("Cartas en baraja: %d", 52-index);
 			
@@ -122,7 +131,8 @@ void blackjack(){
 			}	
 			
 			//IMPRESION DE CARTAS USER
-			cout << endl << nickname << "     Puntaje: "<< User.suma <<  endl;
+			cout << endl << nickname << "     Puntaje: " << User.suma <<  endl;
+			
 			for(int i = 0; i < User.cantCartas ; i++){				
 				printCard(i,'u',User.cartas[i],User.simbolos[i]);								
 			}
@@ -169,8 +179,9 @@ void blackjack(){
 					escribir({0,21});
 					printf("Tomas carta\n");							
 					User.cartas[User.cantCartas] = cartas[index];
+					User.valores[User.cantCartas] = convertir(cartas[index]);
 					User.simbolos[User.cantCartas]= simbolos[index];
-					User.suma += convertir(cartas[index]);
+					
 					User.cantCartas++;					
 					index++; 
 				}
@@ -184,8 +195,9 @@ void blackjack(){
 				if (CPU.suma < 17){
 					printf("CPU toma carta\n");
 					CPU.cartas[CPU.cantCartas] = cartas[index];
+					CPU.valores[CPU.cantCartas] = convertir(cartas[index]);
 					CPU.simbolos[CPU.cantCartas]= simbolos[index];
-					CPU.suma += convertir(cartas[index]);
+					
 					CPU.cantCartas++;
 					index++;					
 				}else{
@@ -194,10 +206,9 @@ void blackjack(){
 					}									
 			}
 			
-			//VERIFICACIÓN AS
-			isAin(&CPU.suma,CPU.cartas);
-			isAin(&User.suma,User.cartas);			
 			
+		
+	
 			//Romper ciclo y anunciar ganador
 			if(ganador){
 				 // Si hay ganador muestra las cartas de la CPU
@@ -224,7 +235,7 @@ void blackjack(){
 				system("pause");
 				system("cls");
 				break;
-			}	
+			}				
 			system("cls");
 		}
 		}
