@@ -8,7 +8,6 @@ int main(){
  	
  		while(m){
  			menu();
- 			scanf("%d",&opc);
  			verificacion(0,5,&opc);
 	 			switch(opc){
 	 				case 1:

@@ -27,10 +27,11 @@ void blackjack(){
 	User.dinero = DINEROINICIO;								//Dinero para el juego
 	char cartas[52], simbolos[52]; 							//Arreglos con informacion del mazo y del ganador
 	int dinero, apuesta;									//Dinero para apostar
-	int index = 0; 											//Número de carta para ser jugada
-	bool tomar, tomarCPU, ganador,otro,inicio; 				//Booleanos para llevar la lógica del juego
+	int index = 0;
+	int tomar, tomarCPU; 									//Número de carta para ser jugada
+	bool ganador,otro,inicio; 								//Booleanos para llevar la lógica del juego
 	char interrogacion = 168, u = 163, i = 161;				//Caracteres para ortografía
-	char nickname[15];										//Nickname
+	string nickname;										//Nickname
 	
 	
 	//Inicio del juego
@@ -60,8 +61,7 @@ void blackjack(){
 		
 		printf("T%c dinero:  $%d\n",u, User.dinero); //IMPRIMIMOS DINERO			
 		if (User.dinero > 5000){ //VERIFICAMOS SI TIENE PARA APOSTAR
-		printf("%cCuanto deseas apostar? M%cnimo $5000\n",interrogacion,i); // Pedimos valor de apuesta
-		scanf("%d",&apuesta);		
+		printf("%cCuanto deseas apostar? M%cnimo $5000\n",interrogacion,i); // Pedimos valor de apuesta	
 		verificacion(5000,User.dinero,&apuesta); // Verificamos mínimo
 		dinero = apuesta;	
 		system("cls");
@@ -174,7 +174,7 @@ void blackjack(){
 			//Turnos
 			if (tomar && !ganador){				//Turno Usuario
 				printf("Es t%c Turno: Tomar(1) Dejar(0)\n",u);						
-				scanf("%d",&tomar);
+				verificacion(0,1,&tomar);
 				if (tomar){
 					escribir({0,21});
 					printf("Tomas carta\n");							

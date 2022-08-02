@@ -90,12 +90,15 @@ int convertir(char x){
 	}
 }
 
-int verificacion(int rango0, int rango1, int *choose){  	
-	while (*choose > rango1 || *choose < rango0){				//Ciclo para verficar rangos
-		cout << "valor invalido, digita nuevamente" << endl;	
-		scanf("%d",choose);
+int verificacion(int rango0, int rango1, int *choose){
+	std::cin >> *choose;
+	while ( !std::cin||*choose > rango1 || *choose < rango0){  			//Ciclo para verficar rangos
+		std::cout << "valor invalido, digita nuevamente" << endl;
+		std::cin.clear();
+		std::cin.ignore(1000, '\n');
+		std::cin >> *choose;
 	}
-	return *choose;												//Devuelve valor en la dirección de memoria de la variable choose	
+	return *choose;														//Ciclo para verficar rangos
 }
 int sumaArreglo(int array[], int n){
 	int suma = 0;
