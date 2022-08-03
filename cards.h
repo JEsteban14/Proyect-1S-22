@@ -193,27 +193,23 @@ void outScore(){
 		}while(true);
 		
 		//PASAMOS DATOS A VARIABLES
-		int j;
-		for (int i = 0; i < lines; i++){
-			j = 0;	
+		for (int i = 0; i < lines; i++){	
 			do{//NOMBRE
 				c = fgetc(file);			
 				if( c == EOF || c == ' '){
 					break;
 				}		
-				persona[i].nick += c;
-				j++;		
+				persona[i].nick += c;		
 			}while(true);		
-			j = 0;	
 			do{//PUNTAJE
 				c = fgetc(file);			
 				if( c == EOF || c == '\n'){
 					break;
 				}		
 				persona[i].score += c;
-				j++;
 			}while(true);
 		}
+		
 		fclose(file);
 	
 		
