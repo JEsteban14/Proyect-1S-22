@@ -210,7 +210,7 @@ void outScore(){
 				if( c == EOF || c == '\n'){
 					break;
 				}		
-				persona[i].score[j]= c;
+				persona[i].score += c;
 				j++;
 			}while(true);
 		}
