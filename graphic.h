@@ -11,7 +11,7 @@ void info();
 
 void printCard(int pos, char user, char valor);			// Impresion de cartas
 
-void escribir(COORD pos); 								//Colocar cursor en consola
+void escribir(int x, int y); 								//Colocar cursor en consola
 
 void instrucciones();									//Instructivo
 
@@ -44,14 +44,14 @@ void inicio(){
 
 void menu(){ 
 	system("cls");
-	printf("MENU\n\n(1)Jugar \n(2)Instrucciones \n(3)Info proyecto\n(4)Highscores\n(5)Volver\n(0)Salir\n");
+	printf("MEN%c\n\n(1)Jugar \n(2)Instrucciones \n(3)Informaci%cn proyecto\n(4)Highscores\n(5)Volver\n(0)Salir\n",233,162);
 }
 
 void info(){
 	system("cls");
 	printf("Abriendo Proyecto en navegador...\n");
 	system("pause");
-	system("start msedge https://www.youtube.com/watch?v=_sYu4qofLwA");
+	system("start msedge https://github.com/JEsteban14/Proyect-1S-22");
 }
 
 void printCard(int pos, char user, char valor, int forma){
@@ -93,17 +93,27 @@ void printCard(int pos, char user, char valor, int forma){
 		else{
 			x = (10*pos);
 		}
-	posicion = {x,y};
+		
+	posicion.X = x;
+	posicion.Y = y;	
+	//posicion = {x,y};
+	
 			
 	SetConsoleCursorPosition(hConsole, posicion);
 	printf("%c%c%c%c%c%c%c%c%c ",cul,h,h,h,h,h,h,h,cur);
-	posicion = {x,y+1};		
+	//posicion = {x,y+1};
+	posicion.X = x;
+	posicion.Y = y + 1;		
 	SetConsoleCursorPosition(hConsole, posicion);
 	printf("%c%c      %c ",v,simbolo,v);
-	posicion = {x,y+2};		
+	//posicion = {x,y+2};
+	posicion.X = x;
+	posicion.Y = y + 2;		
 	SetConsoleCursorPosition(hConsole, posicion);
 	printf("%c       %c ",v,v);
-	posicion = {x,y+3};
+	//posicion = {x,y+3};
+	posicion.X = x;
+	posicion.Y = y + 3;
 	if (valor == '0'){
 		SetConsoleCursorPosition(hConsole, posicion);
 		printf("%c   10  %c ",v,v);
@@ -111,20 +121,29 @@ void printCard(int pos, char user, char valor, int forma){
 		SetConsoleCursorPosition(hConsole, posicion);
 		printf("%c   %c   %c ",v,valor,v);
 	}	
-	posicion = {x,y+4};		
+	//posicion = {x,y+4};
+	posicion.X = x;
+	posicion.Y = y + 4;		
 	SetConsoleCursorPosition(hConsole, posicion);
 	printf("%c       %c ",v,v);
-	posicion = {x,y+5};		
+	//posicion = {x,y+5};
+	posicion.X = x;
+	posicion.Y = y + 5;		
 	SetConsoleCursorPosition(hConsole, posicion);
 	printf("%c      %c%c ",v,simbolo,v);
-	posicion = {x,y+6};		
+	//posicion = {x,y+6};
+	posicion.X = x;
+	posicion.Y = y + 6;		
 	SetConsoleCursorPosition(hConsole, posicion);
 	printf("%c%c%c%c%c%c%c%c%c \n",cdl,h,h,h,h,h,h,h,cdr);
 	//posicion = {0,20}; //Posición final
 	//SetConsoleCursorPosition(hConsole, posicion);
 }
 
-void escribir(COORD pos){
+void escribir(int x, int y){
+	COORD pos;
+	pos.X = x;
+	pos.Y = y;
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(hConsole, pos);
 	
@@ -148,7 +167,7 @@ void instrucciones(){
 
 void despedida(){
 	system("cls");
-	printf("Gracias por jugar manco de mierda que tenga un feliz dia\n");
+	printf("Gracias por jugar, que tenga un buen d%ca\n",161);
 	system("PAUSE");	
 	}
 

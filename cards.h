@@ -1,7 +1,10 @@
-#include "time.h" //Librerias para número aleatorio
+#include "time.h" 			//Librerias para número aleatorio
 #include "stdlib.h"
 #include "iostream"
 #include "stdio.h"
+#include "iomanip"
+#include "fstream"
+#include "sstream"
 
 using namespace std;
 
@@ -15,7 +18,14 @@ int verificacion(int rango0, int rango1, int *choose);	//Para verificar eleccion
 
 int sumaArreglo(int array[], int n);					//Suma el los valores de un arreglo
 
-void isAin(int suma,char array[]); 								//Revisar
+void isAin(int suma,char array[]); 						//Verifica la suma dependiendo el valor del AS (1 o 11)			
+
+string intoString(int a);								//Funcion para la escritura en archivo de puntajes
+
+void inScore(string name, int score);					//Escribe nuevo puntaje en archivo de puntajes.txt
+
+void outScore();										//Imprime puntajes de mayor a menor, guardados en archivo de puntajes.txt
+
 
 void barajear(char baraja[],char simbolos[]){
 	int x;
@@ -118,4 +128,126 @@ void isAin(int array[], int suma){
 			}
 		}
 	}
+}
+
+string intoString(int a){
+	stringstream s;
+	s << a;
+	string x;
+	s >> x;
+	return x; 
+}
+
+void inScore(string name, int score){
+	ofstream archivo;
+	archivo.open("scores.txt",ios::app);  //APPEND __ ADJUNTAR
+	string final = name + " " + intoString(score);	 
+	archivo << endl <<  final;
+	archivo.close();
+}
+
+void outScore(){
+	
+	struct data{
+	string nick;
+	string score;
+	int puntaje;
+	};
+	
+	
+	//LECTURA DE DATOS EN ARCHIVO
+	FILE *file;
+	file = fopen("scores.txt","r");
+	
+	if (!file){
+		file = fopen("scores.txt", "w");
+		system("cls");
+		printf("No hay puntajes. Empieza a jugar para almacenar\n");
+	}else{
+		
+		char c;
+		int lines = 0;
+		
+		//VER CUANTOS JUGADORES HAY (CADA INFO DE JUGADOR ESTÁ POR LINEA) POR ESO SE SUMA SI HAY \_n	
+
+		do{		
+			c = fgetc(file);
+			
+			if( c == EOF){
+				break;
+			}if(c == '\n'){
+				lines++;
+			}
+			
+		}while(true);
+		
+		//	
+		rewind(file);
+		data persona[lines];
+		
+		do{ //skip la primera linea
+			c = fgetc(file);
+			if(c == '\n'){				
+				break;
+			}
+		}while(true);
+		
+		//PASAMOS DATOS A VARIABLES
+		int j;
+		for (int i = 0; i < lines; i++){
+			j = 0;	
+			do{//NOMBRE
+				c = fgetc(file);			
+				if( c == EOF || c == ' '){
+					break;
+				}		
+				persona[i].nick += c;
+				j++;		
+			}while(true);		
+			j = 0;	
+			do{//PUNTAJE
+				c = fgetc(file);			
+				if( c == EOF || c == '\n'){
+					break;
+				}		
+				persona[i].score[j]= c;
+				j++;
+			}while(true);
+		}
+		fclose(file);
+	
+		
+		//PASAMOS CHAR A INT
+		
+		for (int i = 0; i < lines; i++){
+			sscanf(persona[i].score.c_str(), "%d",&persona[i].puntaje);	
+		}
+		
+		//ORGANIZAR HIGHSCORES
+		string save;
+		for(int j = 1; j < lines; j++){
+			for (int i = 0; i < lines; i++){
+				if(persona[i].puntaje < persona[j].puntaje){
+					save = persona[i].nick;
+					persona[i].nick = persona[j].nick;
+					persona[j].nick = save;
+					save = persona[i].score;
+					persona[i].score = persona[j].score;
+					persona[j].score = save;
+					int a = persona[i].puntaje;				
+					persona[i].puntaje = persona[j].puntaje;
+					persona[j].puntaje = a;
+				}
+			}
+		}
+		system("cls");
+		//IMPRIME RESULTADOS
+		cout << setw(20) << left <<"   \tNOMBRE" << setw(12) << "PUNTAJE " <<  endl;	
+		for(int i = 0; i < lines; i++){		
+			cout << setw(3) <<right << i+1 << ".\t";
+			cout << setw(14) <<left << persona[i].nick << right <<"$";
+			cout << setw(10) << right <<  persona[i].puntaje  << endl;	
+		}
+	}	
+	
 }

@@ -3,11 +3,11 @@
 #include "iostream"
 using namespace std;
 
-#define CARTASINICIO 2 			//Cartas iniciales
-#define DINEROINICIO 100000 	//Dinero inicial
+#define CARTASINICIO 2				//Cartas iniciales
+#define DINEROINICIO 100000			//Dinero inicial
 
 struct jugador{
-	int cantCartas = CARTASINICIO;
+	int cantCartas;
 	char cartas[10];
 	int valores[10];
 	char simbolos[10];
@@ -19,7 +19,7 @@ void blackjack();
 
 
 void blackjack(){
-	
+	outScore(); 											//Para crear archivo de puntajes(En caso de existir)
 	system("cls");
 	
 	jugador User, CPU;										//Jugadores 
@@ -27,10 +27,10 @@ void blackjack(){
 	User.dinero = DINEROINICIO;								//Dinero para el juego
 	char cartas[52], simbolos[52]; 							//Arreglos con informacion del mazo y del ganador
 	int dinero, apuesta;									//Dinero para apostar
-	int index = 0;
-	int tomar, tomarCPU; 									//Número de carta para ser jugada
+	int index = 0;											//Número de carta para ser jugada
+	int tomar, tomarCPU; 									
 	bool ganador,otro,inicio; 								//Booleanos para llevar la lógica del juego
-	char interrogacion = 168, u = 163, i = 161;				//Caracteres para ortografía
+	char interrogacion = 168, u = 163;						//Caracteres para ortografía
 	string nickname;										//Nickname
 	
 	
@@ -43,8 +43,8 @@ void blackjack(){
 	
 	while(true){
 		inicio = true; tomar = true; tomarCPU = true;				//Reset de variables para nueva partida
-		CPU.cantCartas = 2; 
-		User.cantCartas = 2;
+		CPU.cantCartas = CARTASINICIO; 
+		User.cantCartas = CARTASINICIO;
 		User.suma = 0;
 		CPU.suma = 0;
 		ganador = false;
@@ -61,7 +61,7 @@ void blackjack(){
 		
 		printf("T%c dinero:  $%d\n",u, User.dinero); //IMPRIMIMOS DINERO			
 		if (User.dinero > 5000){ //VERIFICAMOS SI TIENE PARA APOSTAR
-		printf("%cCuanto deseas apostar? M%cnimo $5000\n",interrogacion,i); // Pedimos valor de apuesta	
+		printf("%cCuanto deseas apostar? M%cnimo $5000\n",interrogacion,161); // Pedimos valor de apuesta	
 		verificacion(5000,User.dinero,&apuesta); // Verificamos mínimo
 		dinero = apuesta;	
 		system("cls");
@@ -111,7 +111,7 @@ void blackjack(){
 			User.suma = sumaArreglo(User.valores,10);
 			CPU.suma = sumaArreglo(CPU.valores,10);			
 						
-			escribir({0,1});
+			escribir(0,1);
 			printf("Cartas en baraja: %d", 52-index);
 			
 		
@@ -176,7 +176,7 @@ void blackjack(){
 				printf("Es t%c Turno: Tomar(1) Dejar(0)\n",u);						
 				verificacion(0,1,&tomar);
 				if (tomar){
-					escribir({0,21});
+					escribir(0,21);
 					printf("Tomas carta\n");							
 					User.cartas[User.cantCartas] = cartas[index];
 					User.valores[User.cantCartas] = convertir(cartas[index]);
@@ -186,7 +186,7 @@ void blackjack(){
 					index++; 
 				}
 				else{
-					escribir({0,21});
+					escribir(0,21);
 					printf("Te quedas\n");
 				}						
 			}											//Turno máquina
@@ -212,22 +212,22 @@ void blackjack(){
 			//Romper ciclo y anunciar ganador
 			if(ganador){
 				 // Si hay ganador muestra las cartas de la CPU
-				escribir({9,3});
+				escribir(9,3);
 				printf("Puntaje: %d    ", CPU.suma);
 				for (int i = 0; i < CPU.cantCartas ; i++){
 					printCard(i,'c',CPU.cartas[i],CPU.simbolos[i]);					
 				}
-				escribir({0,20});			
+				escribir(0,20);			
 				printf("Juego finalizado\n");
 			}					
 			system("pause");
 			if(ganador){
 				if (quien == 1){
-					escribir({0,21});
+					escribir(0,21);
 					printf("Has ganado                                      \nDinero: $%d + $%d\n",User.dinero,dinero);
 					User.dinero += dinero;					
 				}else{
-					escribir({0,21});
+					escribir(0,21);
 					printf("Has perdido                                     \n");
 					printf("Dinero: $%d - $%d\n",User.dinero,dinero);
 					User.dinero -= dinero;
@@ -260,6 +260,7 @@ void blackjack(){
 	system("cls");
 	printf("Gracias por jugar :)\n");
 	printf("T%c dinero final: $%d\n\n",u, User.dinero);
+	inScore(nickname,User.dinero);
 	system("pause");	
 	return;
 }
