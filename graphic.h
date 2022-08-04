@@ -3,6 +3,8 @@
 #include "stdio.h"
 #include "stdlib.h"
 
+using namespace std;
+
 void inicio(); 											//Impresion de pantalla de inicio
 
 void menu();
@@ -167,7 +169,29 @@ void instrucciones(){
 
 void despedida(){
 	system("cls");
-	printf("Gracias por jugar, que tenga un buen d%ca\n",161);
+	printf("Gracias por jugar.\n\n");
+
+cout << "                /|         ," << endl;  
+cout << "              ,///        /|" << endl;
+cout << "             // //     ,///" << endl;
+cout << "            // //     // //" << endl;
+cout << "           // //     || ||" << endl;
+cout << "           || ||    // //" << endl;
+cout << "           || ||   // //" << endl;
+cout << "           || ||  // //" << endl;
+cout << "           || || || ||" << endl;
+cout << "           \\\\,\\|,|\\_//" << endl;
+cout << "            \\\\)\\)\\\\|/" << endl;
+cout << "            )-.\"\" .-(            ";printf("%c%c%cESO ES TODO, VIEJO!!!\n",173,173,173);
+cout << "           //^\\` `/^\\\\" << endl;
+cout << "          //  |   |  \\\\" << endl;
+cout << "        ,/_| 0| _ | 0|_\\," << endl;
+cout << "      /`    `\"=.v.=\"`    `\\" << endl;
+cout << "     /`    _.\"{_,_}\"._    `\\" << endl;
+cout << "     `/`  ` \\  |||  / `  `\\`" << endl;
+cout << "      `\",_  \\\\=^~^=//  _,\"`" << endl;
+cout << "          \"=,\\'-=-'/,=\"	" << endl;				
+cout << "    	      '---' " << endl;
 	system("PAUSE");	
 	}
 

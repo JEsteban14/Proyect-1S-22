@@ -1,7 +1,7 @@
 #include "game.h"
 
 int main(){
-	system("color 06");
+	system("color 0B");
  	inicio();
  	bool salir = false; 		
  	int opc; 	

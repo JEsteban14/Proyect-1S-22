@@ -168,6 +168,8 @@ void outScore(){
 		char c;
 		int lines = 0;
 		
+		
+		
 		//VER CUANTOS JUGADORES HAY (CADA INFO DE JUGADOR ESTÁ POR LINEA) POR ESO SE SUMA SI HAY \_n	
 
 		do{		
@@ -185,12 +187,26 @@ void outScore(){
 		rewind(file);
 		data persona[lines];
 		
+		c = fgetc(file);
+		if (c == EOF){
+			system("cls");
+			cout << "No hay puntajes. Empieza a jugar para almacenar" << endl;
+			return;
+		}
+		
+		rewind(file);
 		do{ //skip la primera linea
 			c = fgetc(file);
 			if(c == '\n'){				
 				break;
 			}
 		}while(true);
+		
+		/*if (c == EOF){
+			system("cls");
+			cout << "No hay puntajes. Empieza a jugar para almacenar" << endl;
+			return;
+		}*/
 		
 		//PASAMOS DATOS A VARIABLES
 		for (int i = 0; i < lines; i++){	
