@@ -1,6 +1,5 @@
 #include "graphic.h" 
 #include "cards.h"  
-#include "iostream"
 using namespace std;
 
 #define CARTASINICIO 2				//Cartas iniciales
@@ -21,6 +20,7 @@ void blackjack();
 void blackjack(){
 	outScore(); 											//Para crear archivo de puntajes(En caso de existir)
 	system("cls");
+	system("color 06");
 	
 	jugador User, CPU;										//Jugadores 
 	int quien;												//Define el jugador ganador
@@ -35,7 +35,8 @@ void blackjack(){
 	
 	
 	//Inicio del juego
-	printf("Ingresa tu nombre\n");
+	//printf("Ingresa tu nombre\n");
+	efectoEscritura("Ingresa tu nombre\n");
 	cin >> nickname;
 	system("cls");
 	rellenar(cartas,simbolos);		//Ordenamos cartas
@@ -116,7 +117,9 @@ void blackjack(){
 			
 		
 			//Impresion de cartas CPU
-			printf("\n\nCPU      ");		
+			SetConsoleTextAttribute(hConsole,7);
+			printf("\n\nCPU      ");	
+			SetConsoleTextAttribute(hConsole,6);	
 			
 			if(!ganador){
 				printf("Puntaje: ???\n");				
@@ -131,8 +134,10 @@ void blackjack(){
 			}	
 			
 			//IMPRESION DE CARTAS USER
-			cout << endl << nickname << "     Puntaje: " << User.suma <<  endl;
-			
+			SetConsoleTextAttribute(hConsole,7);
+			cout << endl << nickname;
+			SetConsoleTextAttribute(hConsole,6);
+			cout<< "     Puntaje: " << User.suma <<  endl;						
 			for(int i = 0; i < User.cantCartas ; i++){				
 				printCard(i,'u',User.cartas[i],User.simbolos[i]);								
 			}
@@ -172,7 +177,7 @@ void blackjack(){
 			}
 			
 			//Turnos
-			if (tomar && !ganador){				//Turno Usuario
+			if (tomar && !ganador){								//Turno Usuario
 				printf("Es t%c Turno: Tomar(1) Dejar(0)\n",u);						
 				verificacion(0,1,&tomar);
 				if (tomar){
@@ -180,8 +185,7 @@ void blackjack(){
 					printf("Tomas carta\n");							
 					User.cartas[User.cantCartas] = cartas[index];
 					User.valores[User.cantCartas] = convertir(cartas[index]);
-					User.simbolos[User.cantCartas]= simbolos[index];
-					
+					User.simbolos[User.cantCartas]= simbolos[index];					
 					User.cantCartas++;					
 					index++; 
 				}
@@ -189,24 +193,21 @@ void blackjack(){
 					escribir(0,21);
 					printf("Te quedas\n");
 				}						
-			}											//Turno máquina
+			}													//Turno máquina
 			else if (!ganador && tomarCPU){	
-				printf("Es el turno del MAQUINA\n");			
+				printf("Es el turno de la CPU\n");			
 				if (CPU.suma < 17){
 					printf("CPU toma carta\n");
 					CPU.cartas[CPU.cantCartas] = cartas[index];
 					CPU.valores[CPU.cantCartas] = convertir(cartas[index]);
-					CPU.simbolos[CPU.cantCartas]= simbolos[index];
-					
+					CPU.simbolos[CPU.cantCartas]= simbolos[index];					
 					CPU.cantCartas++;
 					index++;					
 				}else{
 					printf("CPU se queda\n");
 					tomarCPU = false;	
 					}									
-			}
-			
-			
+			}			
 		
 	
 			//Romper ciclo y anunciar ganador

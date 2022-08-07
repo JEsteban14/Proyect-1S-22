@@ -2,9 +2,11 @@
 #include "stdlib.h"
 #include "iostream"
 #include "stdio.h"
-#include "iomanip"
+#include "iomanip"			//setw()
 #include "fstream"
-#include "sstream"
+#include "sstream"			//streamstring --- para pasar int a string
+#include "windows.h"
+
 
 using namespace std;
 
@@ -101,12 +103,12 @@ int convertir(char x){
 }
 
 int verificacion(int rango0, int rango1, int *choose){
-	std::cin >> *choose;
-	while ( !std::cin||*choose > rango1 || *choose < rango0){  			//Ciclo para verficar rangos
-		std::cout << "valor invalido, digita nuevamente" << endl;
-		std::cin.clear();
-		std::cin.ignore(1000, '\n');
-		std::cin >> *choose;
+	cin >> *choose;
+	while ( !cin||*choose > rango1 || *choose < rango0){  			//Ciclo para verficar rangos
+		cout << "valor invalido, digita nuevamente" << endl;
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cin >> *choose;
 	}
 	return *choose;														//Ciclo para verficar rangos
 }
@@ -202,11 +204,6 @@ void outScore(){
 			}
 		}while(true);
 		
-		/*if (c == EOF){
-			system("cls");
-			cout << "No hay puntajes. Empieza a jugar para almacenar" << endl;
-			return;
-		}*/
 		
 		//PASAMOS DATOS A VARIABLES
 		for (int i = 0; i < lines; i++){	
@@ -254,7 +251,10 @@ void outScore(){
 		}
 		system("cls");
 		//IMPRIME RESULTADOS
-		cout << setw(20) << left <<"   \tNOMBRE" << setw(12) << "PUNTAJE " <<  endl;	
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(hConsole,3);
+		cout << setw(20) << left <<"   \tNOMBRE" << setw(12) << "PUNTAJE " <<  endl;
+		SetConsoleTextAttribute(hConsole,7);	
 		for(int i = 0; i < lines; i++){		
 			cout << setw(3) <<right << i+1 << ".\t";
 			cout << setw(14) <<left << persona[i].nick << right <<"$";

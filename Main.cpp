@@ -1,11 +1,11 @@
 #include "game.h"
 
 int main(){
-	system("color 0B");
  	inicio();
  	bool salir = false; 		
  	int opc; 	
  	while(!salir){
+ 		system("color 03");
  		menu();
  		verificacion(0,5,&opc);
 			switch(opc){
