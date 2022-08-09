@@ -51,14 +51,7 @@ void blackjack(){
 		CPU.suma = 0;
 		ganador = false;
 		
-		/*for (int i = 0; i < 10; i++){  	//Liberamos memoria de arrays que almacenan valores de cartas 
-			CPU.cartas[i] = 0;
-			User.cartas[i] = 0;
-			CPU.simbolos[i] = 0;
-			User.simbolos[i] = 0;
-			CPU.valores[i] = 0;
-			User.valores[i] = 0;
-		}*/
+		//Liberamos memoria de arrays que almacenan valores de cartas 
 		memset(&CPU.valores,0,sizeof(CPU.valores));
 		memset(&User.valores,0,sizeof(User.valores));
 		
