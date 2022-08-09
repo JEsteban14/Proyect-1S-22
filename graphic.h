@@ -49,7 +49,7 @@ void inicio(){
 	escribir(1,10);
 	for (int i = 0; i < strlen(str1); i++){
 		cout << str1[i];
-		Sleep(100);
+		Sleep(70);
 	}cout << endl;
 	
 	Sleep(200);
@@ -66,7 +66,7 @@ void inicio(){
 		SetConsoleTextAttribute(hConsole,2);
 		escribir(1+i,16);
 		cout << str5[i];
-		Sleep(100);
+		Sleep(70);
 	}
 	cout << endl << endl;
 	
@@ -74,7 +74,7 @@ void inicio(){
 	SetConsoleTextAttribute(hConsole,3);
 	for (int i = 0; i < strlen(str6); i++){
 		cout << str6[i];
-		Sleep(100);
+		Sleep(70);
 	}
 	
 	getch();	
@@ -101,7 +101,7 @@ void info(){
 	system("cls");
 	 
 	efectoEscritura("Abriendo Proyecto en navegador...\n");
-	Sleep(100);
+	Sleep(200);
 	system("start msedge https://github.com/JEsteban14/Proyect-1S-22");
 }
 
@@ -127,10 +127,10 @@ void printCard(int pos, char user, char valor, int forma){
 			break;
 		case '3':
 			simbolo = d;
-			SetConsoleTextAttribute(hConsole,1);
+			SetConsoleTextAttribute(hConsole,9);
 			break;
-			default:
-			SetConsoleTextAttribute(hConsole,3);	
+		default:
+			SetConsoleTextAttribute(hConsole,7);	
 			simbolo = inc;
 	}
 	
@@ -257,7 +257,7 @@ void efectoEscritura(const char text[]){
 	int n = strlen(text);
 	for (int i = 0; i < n; i++){
 		cout << text[i];
-		Sleep(100);
+		Sleep(70);
 	}
 	
 }

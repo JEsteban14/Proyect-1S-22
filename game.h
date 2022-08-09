@@ -1,5 +1,6 @@
 #include "graphic.h" 
-#include "cards.h"  
+#include "cards.h" 
+#include "string.h"
 using namespace std;
 
 #define CARTASINICIO 2				//Cartas iniciales
@@ -50,22 +51,24 @@ void blackjack(){
 		CPU.suma = 0;
 		ganador = false;
 		
-		for (int i = 0; i < 10; i++){  	//Liberamos arrays que almacenan valores de cartas 
+		/*for (int i = 0; i < 10; i++){  	//Liberamos memoria de arrays que almacenan valores de cartas 
 			CPU.cartas[i] = 0;
 			User.cartas[i] = 0;
 			CPU.simbolos[i] = 0;
 			User.simbolos[i] = 0;
 			CPU.valores[i] = 0;
 			User.valores[i] = 0;
-		}
-			
+		}*/
+		memset(&CPU.valores,0,sizeof(CPU.valores));
+		memset(&User.valores,0,sizeof(User.valores));
 		
-		printf("T%c dinero:  $%d\n",u, User.dinero); //IMPRIMIMOS DINERO			
-		if (User.dinero > 5000){ //VERIFICAMOS SI TIENE PARA APOSTAR
-		printf("%cCuanto deseas apostar? M%cnimo $5000\n",interrogacion,161); // Pedimos valor de apuesta	
+		printf("T%c dinero:  $%d\n",u, User.dinero); 							//IMPRIMIMOS DINERO			
+		if (User.dinero > 5000){ 												//VERIFICAMOS SI TIENE PARA APOSTAR
+		printf("%cCuanto deseas apostar? M%cnimo $5000\n",interrogacion,161); 	// Pedimos valor de apuesta	
 		verificacion(5000,User.dinero,&apuesta); // Verificamos mínimo
 		dinero = apuesta;	
 		system("cls");
+		
 			if (index > 38){
 					printf("Barajeando mazo...\n");
 					rellenar(cartas,simbolos);		//Ordenamos cartas
@@ -107,14 +110,10 @@ void blackjack(){
 			
 			//VERIFICACIÓN AS
 			isAin(User.valores,User.suma);
-			isAin(CPU.valores,CPU.suma);
-			
-			User.suma = sumaArreglo(User.valores,10);
-			CPU.suma = sumaArreglo(CPU.valores,10);			
+			isAin(CPU.valores,CPU.suma);						
 						
 			escribir(0,1);
-			printf("Cartas en baraja: %d", 52-index);
-			
+			printf("Cartas en baraja: %d", 52-index);			
 		
 			//Impresion de cartas CPU
 			SetConsoleTextAttribute(hConsole,7);
