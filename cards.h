@@ -20,7 +20,7 @@ int verificacion(int rango0, int rango1, int *choose);	//Para verificar eleccion
 
 int sumaArreglo(int array[], int n);					//Suma el los valores de un arreglo
 
-void isAin(int suma,char array[]); 						//Verifica la suma dependiendo el valor del AS (1 o 11)			
+void isAin(int array[],int suma); 						//Verifica la suma dependiendo el valor del AS (1 o 11)			
 
 string intoString(int a);								//Funcion para la escritura en archivo de puntajes
 

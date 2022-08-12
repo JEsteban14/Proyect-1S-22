@@ -107,10 +107,14 @@ void blackjack(){
 			
 			//VERIFICACIÓN AS
 			isAin(User.valores,User.suma);
-			isAin(CPU.valores,CPU.suma);						
+			isAin(CPU.valores,CPU.suma);								
 						
 			escribir(0,1);
 			printf("Cartas en baraja: %d", 52-index);			
+		
+			//SUMAS 
+			User.suma = sumaArreglo(User.valores,10);
+			CPU.suma = sumaArreglo(CPU.valores,10);
 		
 			//IMPRESIÓN DE CARTAS CPU
 			SetConsoleTextAttribute(hConsole,7);
@@ -138,6 +142,8 @@ void blackjack(){
 				printCard(i,'u',User.cartas[i],User.simbolos[i]);								
 			}
 						
+			
+			
 			
 			//CONDICIONALES DEL GANADOR
 			if (User.suma == 21 || CPU.suma == 21){
