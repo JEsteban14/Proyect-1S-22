@@ -8,11 +8,11 @@ using namespace std;
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);		//Global para la impresión de graficos	
 
-void inicio(); 											//Impresion de pantalla de inicio
+void inicio(); 											//Impresión de pantalla de inicio
 
-void menu();
+void menu();											//Impresión de menú
 
-void info();
+void info();											//Pagina github con código
 
 void printCard(int pos, char user, char valor);			// Impresion de cartas
 
@@ -22,7 +22,7 @@ void instrucciones();									//Instructivo
 
 void despedida();										//Despedida
 
-void efectoEscritura(const char text[]);
+void efectoEscritura(const char text[]);				//Efecto de escritura
 
 void inicio(){	
 	

@@ -3,9 +3,9 @@
 #include "iostream"
 #include "stdio.h"
 #include "iomanip"			//setw()
-#include "fstream"
+#include "fstream"			//Para el manejo de archivos
 #include "sstream"			//streamstring --- para pasar int a string
-#include "windows.h"
+#include "windows.h"		//Para manejar consola al gusto
 
 
 using namespace std;
