@@ -23,6 +23,7 @@ void blackjack(){
 	system("cls");
 	system("color 06");
 	
+	//DEFINICIÓN DE VARIABLES PARA EL DESARROLLO DEL JUEGO
 	jugador User, CPU;										//Jugadores 
 	int quien;												//Define el jugador ganador
 	User.dinero = DINEROINICIO;								//Dinero para el juego
@@ -35,8 +36,7 @@ void blackjack(){
 	string nickname;										//Nickname
 	
 	
-	//Inicio del juego
-	//printf("Ingresa tu nombre\n");
+	//INICIO DE JUEGO
 	efectoEscritura("Ingresa tu nombre\n");
 	cin >> nickname;
 	system("cls");
@@ -44,7 +44,8 @@ void blackjack(){
 	barajear(cartas,simbolos);		//Barajeamos cartas
 	
 	while(true){
-		inicio = true; tomar = true; tomarCPU = true;				//Reset de variables para nueva partida
+		//INICIALIZACIÓN DE VARIABLES PARA UN JUEGO
+		inicio = true; tomar = true; tomarCPU = true;			
 		CPU.cantCartas = CARTASINICIO; 
 		User.cantCartas = CARTASINICIO;
 		User.suma = 0;
@@ -55,6 +56,8 @@ void blackjack(){
 		memset(&CPU.valores,0,sizeof(CPU.valores));
 		memset(&User.valores,0,sizeof(User.valores));
 		
+		
+		//IMPRESIÓN PARA LEER APUESTA
 		printf("T%c dinero:  $%d\n",u, User.dinero); 							//IMPRIMIMOS DINERO			
 		if (User.dinero > 5000){ 												//VERIFICAMOS SI TIENE PARA APOSTAR
 		printf("%cCuanto deseas apostar? M%cnimo $5000\n",interrogacion,161); 	// Pedimos valor de apuesta	
@@ -62,17 +65,18 @@ void blackjack(){
 		dinero = apuesta;	
 		system("cls");
 		
-			if (index > 38){
-					printf("Barajeando mazo...\n");
-					rellenar(cartas,simbolos);		//Ordenamos cartas
-					barajear(cartas,simbolos);		//Barajeamos cartas
-					index = 0;
-					system("pause");
-					system("cls");
-			}
 		
-		//Inicio de la partida
+		//BARAJEAR MAZO (EN CASO DE HABER MENOS DE 15 CARTAS POR JUGAR)
+		if (index > 38){
+				printf("Barajeando mazo...\n");
+				rellenar(cartas,simbolos);		//Ordenamos cartas
+				barajear(cartas,simbolos);		//Barajeamos cartas
+				index = 0;
+				system("pause");
+				system("cls");
+		}
 		
+		//INICIO DEL JUEGO (UN CHICO)		
 		while(true){												
 			printf("T%c dinero:  $%d\t",u, User.dinero);
 			printf("T%c apuesta: $%d\n ",u, dinero);			
@@ -94,7 +98,7 @@ void blackjack(){
 				}		
 				
 				inicio = false; 
-			} 											//FINALIZA EL INICIO
+			}//FINALIZA EL INICIO
 			
 			
 			//SUMAS 
@@ -108,7 +112,7 @@ void blackjack(){
 			escribir(0,1);
 			printf("Cartas en baraja: %d", 52-index);			
 		
-			//Impresion de cartas CPU
+			//IMPRESIÓN DE CARTAS CPU
 			SetConsoleTextAttribute(hConsole,7);
 			printf("\n\nCPU      ");	
 			SetConsoleTextAttribute(hConsole,6);	
@@ -135,7 +139,7 @@ void blackjack(){
 			}
 						
 			
-			//Condicionales de ganador
+			//CONDICIONALES DEL GANADOR
 			if (User.suma == 21 || CPU.suma == 21){
 				if (User.suma == 21 && CPU.suma != 21){ //Si alguien consigue 21
 					ganador = true;
@@ -168,9 +172,9 @@ void blackjack(){
 				}	
 			}
 			
-			//Turnos
+			//TURNOS
 			if (tomar && !ganador){								//Turno Usuario
-				printf("Es t%c Turno: Tomar(1) Dejar(0)\n",u);						
+				printf("Es t%c Turno: (1)Tomar (0)Dejar\n",u);						
 				verificacion(0,1,&tomar);
 				if (tomar){
 					escribir(0,21);
@@ -202,7 +206,7 @@ void blackjack(){
 			}			
 		
 	
-			//Romper ciclo y anunciar ganador
+			//ROMPER CICLO (EN CASO DE GANADOR)
 			if(ganador){
 				 // Si hay ganador muestra las cartas de la CPU
 				escribir(9,3);
@@ -234,7 +238,7 @@ void blackjack(){
 		}
 		
 		if (User.dinero < 5000){
-			printf("Ya no tienes dinero para apostar\n");
+			printf("Ya no tienes sufieciente dinero para apostar\n");
 			system("PAUSE");
 			break;
 		}		
@@ -253,7 +257,9 @@ void blackjack(){
 	system("cls");
 	printf("Gracias por jugar :)\n");
 	printf("T%c dinero final: $%d\n\n",u, User.dinero);
-	inScore(nickname,User.dinero);
+	if(User.dinero != 0){ 			//Si pierde todo el dinero no se guarda el puntaje
+		inScore(nickname,User.dinero);
+	}
 	system("pause");	
 	return;
 }
